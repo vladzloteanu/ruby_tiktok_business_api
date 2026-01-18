@@ -149,6 +149,13 @@ module TiktokBusinessApi
       resource(:spc)
     end
 
+    # Access to Smart+ Material Report resource
+    #
+    # @return [TiktokBusinessApi::Resources::SmartPlusMaterialReport] Smart+ Material Report resource
+    def smart_plus_material_reports
+      resource(:smart_plus_material_report)
+    end
+
     private
 
     # Set up Faraday connection
