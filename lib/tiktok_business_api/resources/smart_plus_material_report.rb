@@ -16,6 +16,7 @@ module TiktokBusinessApi
     #   client.smart_plus_material_reports.overview(
     #     advertiser_id: "123456",
     #     campaign_id: "789",
+    #     dimensions: ["main_material_id"],
     #     start_date: "2026-01-01",
     #     end_date: "2026-01-18"
     #   )
@@ -24,11 +25,18 @@ module TiktokBusinessApi
     #   client.smart_plus_material_reports.breakdown(
     #     advertiser_id: "123456",
     #     campaign_id: "789",
-    #     dimensions: ["material_id"],
+    #     dimensions: ["main_material_id"],
     #     start_date: "2026-01-01",
     #     end_date: "2026-01-18",
     #     metrics: ["spend", "impressions", "clicks", "conversions"]
     #   )
+    #
+    # Available dimensions:
+    # - main_material_id: The creative (video/image) ID
+    # - ad_text_entity_id: Ad text/copy variation
+    # - call_to_action_entity_id: CTA button variation
+    # - interactive_add_on_entity_id: Interactive add-on variation
+    # - stat_time_day, stat_time_hour, stat_time_week, stat_time_month: Time granularity
     #
     class SmartPlusMaterialReport < BaseResource
       # Get the resource name (used for endpoint paths)
@@ -41,15 +49,19 @@ module TiktokBusinessApi
       # Get overview of material (creative) performance for a Smart+ campaign
       #
       # @param advertiser_id [String] The advertiser ID
-      # @param campaign_id [String] The Smart+ campaign ID (optional, filters to specific campaign)
+      # @param dimensions [Array<String>] Dimensions to break down by (required)
+      #   Available: main_material_id, ad_text_entity_id, call_to_action_entity_id,
+      #   interactive_add_on_entity_id, stat_time_day, stat_time_hour, stat_time_week, stat_time_month
       # @param start_date [String] Start date in YYYY-MM-DD format
       # @param end_date [String] End date in YYYY-MM-DD format
+      # @param campaign_id [String] The Smart+ campaign ID (optional, filters to specific campaign)
       # @param metrics [Array<String>] Metrics to include (optional)
       # @param filtering [Hash] Additional filtering options (optional)
       # @return [Hash] Overview data with aggregated creative performance
-      def overview(advertiser_id:, start_date:, end_date:, campaign_id: nil, metrics: nil, filtering: nil, **params)
+      def overview(advertiser_id:, dimensions:, start_date:, end_date:, campaign_id: nil, metrics: nil, filtering: nil, **params)
         request_params = {
           advertiser_id: advertiser_id,
+          dimensions: dimensions.is_a?(Array) ? dimensions.to_json : dimensions,
           start_date: start_date,
           end_date: end_date
         }
@@ -70,7 +82,9 @@ module TiktokBusinessApi
       # It returns performance metrics broken down by the specified dimensions.
       #
       # @param advertiser_id [String] The advertiser ID
-      # @param dimensions [Array<String>] Dimensions to break down by (e.g., ["material_id"])
+      # @param dimensions [Array<String>] Dimensions to break down by (e.g., ["main_material_id"])
+      #   Available: main_material_id, ad_text_entity_id, call_to_action_entity_id,
+      #   interactive_add_on_entity_id, stat_time_day, stat_time_hour, stat_time_week, stat_time_month
       # @param start_date [String] Start date in YYYY-MM-DD format
       # @param end_date [String] End date in YYYY-MM-DD format
       # @param campaign_id [String] The Smart+ campaign ID (optional, filters to specific campaign)
