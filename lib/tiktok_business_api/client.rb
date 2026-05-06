@@ -156,6 +156,21 @@ module TiktokBusinessApi
       resource(:smart_plus_material_report)
     end
 
+    # Access to Upgraded Smart+ Campaigns resource
+    def upgraded_spcs
+      resource(:upgraded_spc)
+    end
+
+    # Access to Upgraded Smart+ ad groups resource
+    def upgraded_spc_adgroups
+      resource(:upgraded_spc_adgroup)
+    end
+
+    # Access to Upgraded Smart+ ads resource
+    def upgraded_spc_ads
+      resource(:upgraded_spc_ad)
+    end
+
     private
 
     # Set up Faraday connection
