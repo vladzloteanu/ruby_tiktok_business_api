@@ -98,7 +98,6 @@ module TiktokBusinessApi
       def breakdown(advertiser_id:, dimensions:, start_date:, end_date:, campaign_id: nil,
         metrics: nil, filtering: nil, sort_field: "spend", sort_type: "DESC",
         page: 1, page_size: 100, **params)
-
         request_params = {
           advertiser_id: advertiser_id,
           dimensions: dimensions.is_a?(Array) ? dimensions.to_json : dimensions,
