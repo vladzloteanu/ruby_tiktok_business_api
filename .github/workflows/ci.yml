@@ -55,7 +55,7 @@ jobs:
         mkdir -p pkg
         gem build *.gemspec -o pkg/tiktok_ads_api.gem
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: tiktok_ads_api-gem
         path: pkg/tiktok_ads_api.gem
