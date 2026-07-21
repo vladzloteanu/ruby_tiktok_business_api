@@ -137,6 +137,13 @@ module TiktokBusinessApi
       resource(:account)
     end
 
+    # Access to Business Center resource
+    #
+    # @return [TiktokBusinessApi::Resources::BusinessCenter] Business Center resource
+    def business_centers
+      resource(:business_center)
+    end
+
     # Access to reporting resource
     #
     # @return [TiktokBusinessApi::Resources::Reporting] Reporting resource
