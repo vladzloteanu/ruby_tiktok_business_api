@@ -102,7 +102,7 @@ module TiktokBusinessApi
       #
       # @param advertiser_id [String] Advertiser ID (required)
       # @param smart_plus_ad_ids [Array<String>] Ad IDs (required)
-      # @param operation_status [String] New status: ENABLE or DISABLE (required)
+      # @param operation_status [String] New status: ENABLE, DISABLE or DELETE (required)
       # @return [Hash] Result data
       def update_status(advertiser_id:, smart_plus_ad_ids:, operation_status:, **params)
         body = {
@@ -115,17 +115,23 @@ module TiktokBusinessApi
         response["data"]
       end
 
-      # Update the status of individual creative materials inside an ad
+      # Disable or enable individual creatives inside an ad
+      #
+      # Note the id: `ad_material_id` is the ad-specific id a creative gets when it is
+      # used in an ad, NOT the `smart_plus_creative_id` and NOT the creative id from
+      # the account's Creative Library. Both are returned side by side by #list.
       #
       # @param advertiser_id [String] Advertiser ID (required)
       # @param smart_plus_ad_id [String] Ad ID (required)
-      # @param materials [Array<Hash>] Material status updates (required)
+      # @param ad_material_ids [Array<String>] Ad material IDs to operate on (required, max 20)
+      # @param operation_status [String] New status: ENABLE or DISABLE (required)
       # @return [Hash] Result data
-      def update_material_status(advertiser_id:, smart_plus_ad_id:, materials:, **params)
+      def update_material_status(advertiser_id:, smart_plus_ad_id:, ad_material_ids:, operation_status:, **params)
         body = {
           advertiser_id: advertiser_id,
           smart_plus_ad_id: smart_plus_ad_id,
-          materials: materials
+          ad_material_ids: ad_material_ids,
+          operation_status: operation_status
         }.merge(params)
 
         response = _http_post("material_status/update/", body)
