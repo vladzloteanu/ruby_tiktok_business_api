@@ -141,6 +141,44 @@ client.identities.list_all(advertiser_id: 'your_advertiser_id') do |identity|
 end
 ```
 
+### Working with Comments
+
+Moderate the comments posted on your ads. TikTok has no comment webhook, so poll `list` per ad group.
+Comments older than 90 days are not returned.
+
+```ruby
+# List the comments of an ad group (one page, or every page with list_all)
+client.comments.list_all(
+  advertiser_id: 'your_advertiser_id',
+  search_field: 'ADGROUP_ID',
+  search_value: 'adgroup_id',
+  start_time: '2026-10-01',
+  end_time: '2026-10-26'
+) do |comment|
+  puts "#{comment['user_name']}: #{comment['content']}"
+end
+
+# Hide / unhide comments
+client.comments.hide(advertiser_id: 'your_advertiser_id', comment_ids: ['comment_id'])
+client.comments.unhide(advertiser_id: 'your_advertiser_id', comment_ids: ['comment_id'])
+
+# Reply to or delete a comment (needs the ad's id, post id and identity)
+ad = {ad_id: 'ad_id', tiktok_item_id: 'item_id', identity_id: 'identity_id', identity_type: 'CUSTOMIZED_USER'}
+client.comments.post(advertiser_id: 'your_advertiser_id', comment_id: 'comment_id', text: 'Thanks!', **ad)
+client.comments.delete(advertiser_id: 'your_advertiser_id', comment_id: 'comment_id', **ad)
+```
+
+### Working with Blocked Words
+
+Comments containing a blocked word are hidden by TikTok itself.
+
+```ruby
+words = client.blocked_words.list_all(advertiser_id: 'your_advertiser_id')
+client.blocked_words.create(advertiser_id: 'your_advertiser_id', blocked_words: ['scam'])
+client.blocked_words.update(advertiser_id: 'your_advertiser_id', old_word: 'scam', new_word: 'scams')
+client.blocked_words.delete(advertiser_id: 'your_advertiser_id', blocked_words: ['scams'])
+```
+
 ### Working with Images
 
 Upload and manage images for your ads:

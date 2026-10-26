@@ -144,6 +144,20 @@ module TiktokBusinessApi
       resource(:business_center)
     end
 
+    # Access to comment resource
+    #
+    # @return [TiktokBusinessApi::Resources::Comment] Comment resource
+    def comments
+      resource(:comment)
+    end
+
+    # Access to blocked word resource
+    #
+    # @return [TiktokBusinessApi::Resources::BlockedWord] Blocked word resource
+    def blocked_words
+      resource(:blocked_word)
+    end
+
     # Access to reporting resource
     #
     # @return [TiktokBusinessApi::Resources::Reporting] Reporting resource

@@ -32,6 +32,9 @@ lib/tiktok_business_api/
     ├── video.rb              # Video uploads with Smart Fix
     ├── identity.rb           # Identity/account management
     ├── account.rb            # Advertiser info
+    ├── business_center.rb    # Business Centers and their assets
+    ├── comment.rb            # Ad comments: list, hide, delete, reply
+    ├── blocked_word.rb       # Blocked words per ad account
     ├── spc.rb                # Smart+ Campaigns
     └── reporting.rb          # Sync reports
 ```
